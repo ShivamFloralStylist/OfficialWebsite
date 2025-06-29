@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Add Products | Shivam Floral Stylist - Premium Flower Shop & Event Decor</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Shivam Floral Stylist - Admin</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="add-blog.html">Add Blog</a>
+      <a href="add-product.html">Add Product</a>
+    </nav>
+  </header>
+
+  <section class="contact">
+    <h2>Add New Product</h2>
+    <form id="add-product-form">
+      <input type="text" id="product-name" placeholder="Product Name" required />
+      <input type="number" id="product-price" placeholder="Price (₹)" required />
+      <input type="text" id="product-image" placeholder="Image URL" required />
+      <button type="submit">Add Product</button>
+    </form>
+    <h2>Existing Products</h2>
+    <div id="product-list"></div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Shivam Floral Stylist</p>
+  </footer>
+  <script src="js/add-product.js"></script>
+</body>
+
+</html>
