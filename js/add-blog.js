@@ -45,7 +45,7 @@ async function loadAdminBlogPosts() {
         <p>${data.content}</p>
         <div class="admin-gallery">${galleryDisplay}</div>
         <hr>
-        <button onclick="startEditBlogPost('${id}', \`${data.title.replace(/`/g, "\\`")}\`, '${data.image}', \`${data.content.replace(/`/g, "\\`")}\`, '${(data.gallery || []).join(",")}')">Edit</button>
+        <button onclick="startEditBlogPost('${id}', \`${data.title.replace(/`/g, "\\`")}\`, '${data.date || ''}', '${data.image}', \`${data.content.replace(/`/g, "\\`")}\`, '${(data.gallery || []).join(",")}')">Edit</button>
         <button onclick="removeBlogPost('${id}')">Remove</button>
       `;
             container.appendChild(item);
@@ -71,8 +71,9 @@ async function removeBlogPost(id) {
 }
 
 // Start editing
-function startEditBlogPost(id, title, image, content, gallery) {
+function startEditBlogPost(id, title, date, image, content, gallery) {
     document.getElementById('blog-title').value = title;
+    document.getElementById('blog-date').value = date;
     document.getElementById('blog-image').value = image;
     document.getElementById('blog-content').value = content;
     document.getElementById('blog-gallery').value = gallery;
@@ -99,11 +100,12 @@ document.getElementById('add-blog-form').addEventListener('submit', async (e) =>
     e.preventDefault();
 
     const title = document.getElementById('blog-title').value.trim();
+    const date = document.getElementById('blog-date').value.trim();
     const image = document.getElementById('blog-image').value.trim();
     const content = document.getElementById('blog-content').value.trim();
     const galleryInput = document.getElementById('blog-gallery').value.trim();
 
-    if (!title || !image || !content) {
+    if (!title || !date || !image || !content) {
         alert('Please fill in Title, Image, and Content!');
         return;
     }
@@ -116,6 +118,7 @@ document.getElementById('add-blog-form').addEventListener('submit', async (e) =>
         if (editId) {
             await db.collection('posts').doc(editId).update({
                 title,
+                date,
                 image,
                 content,
                 gallery
@@ -124,10 +127,11 @@ document.getElementById('add-blog-form').addEventListener('submit', async (e) =>
         } else {
             await db.collection('posts').add({
                 title,
+                date,
                 image,
                 content,
                 gallery,
-                date: new Date().toISOString()
+                //date: new Date().toISOString()
             });
             alert('Blog post added!');
         }
